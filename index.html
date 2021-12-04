@@ -25,7 +25,7 @@
       event.preventDefault();
       const formData = new FormData(form);
       const siteUrl = formData.get("siteUrl");
-      fetch(siteUrl, {mode: "no-cors"})
+      fetch(siteUrl, {mode: "cors"})
       .then(response => response.text())
       .then(text => {
         const source = document.querySelector("#content");
