@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Web x-ray</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="">
+<style>
+</style>
+<body>
+
+<h1>Web x-ray</h1>
+
+<form id="form">
+<label for="siteUrl">Enter site URL</label>
+<input type="text" id="siteUrl" name="siteUrl">
+<input type="submit">
+</form>
+
+<div id="content"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("#form");
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const siteUrl = formData.get("siteUrl");
+      fetch(siteUrl, { mode: 'no-cors'})
+      .then(response => response.text())
+      .then(text => {
+        const source = document.querySelector("#content");
+        source.innerHTML = "";
+        source.textContent = text;
+      })
+      .catch(error => alert(error.message));
+    });
+  });
+</script>
+</body>
+</html
