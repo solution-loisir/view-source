@@ -4,7 +4,9 @@
   "description": "Get source code from URLs.",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx @11ty/eleventy --watch",
+    "prod": "npx @11ty/eleventy"
   },
   "repository": {
     "type": "git",
