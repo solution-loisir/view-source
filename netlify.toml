@@ -13,3 +13,5 @@
     pretty_urls = false
 [build.processing.images]
     compress = true
+[dev]
+    command = "npm run dev"
