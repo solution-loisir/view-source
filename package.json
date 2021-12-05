@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "netlify dev",
-    "dev": "npx @11ty/eleventy --watch",
+    "dev": "npx @11ty/eleventy --serve --incremental",
     "prod": "npx @11ty/eleventy"
   },
   "repository": {
