@@ -15,3 +15,8 @@
     compress = true
 [dev]
     command = "npm run dev"
+[[redirects]]
+from = "/get-code/"
+to = "/functions/dynamic"
+status = 200
+force = true
