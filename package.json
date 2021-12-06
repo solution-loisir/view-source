@@ -21,7 +21,8 @@
   "homepage": "https://github.com/solution-loisir/web-x-ray#readme",
   "devDependencies": {
     "@11ty/eleventy": "^1.0.0-beta.8",
-    "netlify-cli": "^8.0.15"
+    "netlify-cli": "^8.0.15",
+    "node-fetch": "^3.1.0"
   },
   "dependencies": {
     "@netlify/functions": "^0.10.0"
