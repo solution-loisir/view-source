@@ -5,4 +5,5 @@ module.exports = config => {
         name: "dynamic",
         redirects: "netlify-toml-builders"
     });
+    config.dataFilterSelectors.add("page");
 }
