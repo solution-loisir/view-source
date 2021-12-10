@@ -1,45 +1,23 @@
----
-permalink:
-  build: /
-  dynamic: /get-code/
----
 <!DOCTYPE html>
 <html lang="en">
+<head>
 <meta charset="UTF-8">
 <title>Web x-ray</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 </style>
+</head>
 <body>
 
 <h1>Web x-ray</h1>
 
-<form action="/get-code/" method="get">
+<form action="/getsource/" method="GET">
 <label for="siteUrl">Enter site URL</label>
 <input type="url" id="siteUrl" name="siteUrl" required>
 <input type="submit">
 </form>
 
-<pre><code>{{ eleventy.serverless.result }}</code></pre>
-{#
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("#form");
-    form.addEventListener("submit", event => {
-      event.preventDefault();
-      const formData = new FormData(form);
-      const siteUrl = formData.get("siteUrl");
-      fetch(siteUrl, {headers: {"Content-Type" : "text/plain"}})
-      .then(response => response.text())
-      .then(text => {
-        const source = document.querySelector("#content");
-        source.innerHTML = "";
-        source.textContent = text;
-      })
-      .catch(error => alert(error.message));
-    });
-  });
-</script>
-#}
+<pre><code></code></pre>
+
 </body>
 </html>

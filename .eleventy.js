@@ -1,8 +1,6 @@
-const { EleventyServerlessBundlerPlugin } = require("@11ty/eleventy");
+//const { EleventyServerlessBundlerPlugin } = require("@11ty/eleventy");
+const inspect = require("util").inspect;
 
 module.exports = config => {
-    config.addPlugin(EleventyServerlessBundlerPlugin, {
-        name: "dynamic",
-        redirects: "netlify-toml-builders"
-    });
+    config.addPassthroughCopy("prism/*");
 }

@@ -1,6 +1,7 @@
 [build]
     publish = "_site"
     command = "npm run prod"
+    functions = "functions"
 [build.processing]
     skip_processing = false
 [build.processing.css]
@@ -15,8 +16,10 @@
     compress = true
 [dev]
     command = "npm run dev"
+[functions]
+  directory = "functions"
+  node_bundler = "esbuild"
 [[redirects]]
-from = "/get-code/"
-to = "/functions/dynamic"
-status = 200
-force = true
+  from = "/getsource/"
+  to = "/.netlify/functions/getsource"
+  status = 200
