@@ -29,6 +29,10 @@ async function handler(event) {
 <input type="submit">
 </form>
 
+<p>Source code from: <a href="${ url }" target="_blank">${ url }</a></p>
+
+<hr>
+
 <pre><code>${ escapeHTML }</code></pre>
 <script src="prism/prism.js"></script>
 </body>
