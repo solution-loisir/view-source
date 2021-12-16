@@ -1,25 +1,34 @@
 [build]
-    publish = "_site"
-    command = "npm run prod"
-    functions = "functions"
-[build.processing]
-    skip_processing = false
-[build.processing.css]
+publish = "_site"
+command = "npm run prod"
+
+  [build.processing]
+  skip_processing = false
+
+    [build.processing.css]
     bundle = false
     minify = true
-[build.processing.js]
+
+    [build.processing.js]
     bundle = false
     minify = true
-[build.processing.html]
+
+    [build.processing.html]
     pretty_urls = false
-[build.processing.images]
+
+    [build.processing.images]
     compress = true
+
 [dev]
-    command = "npm run dev"
+command = "npm run dev"
+
 [functions]
-  directory = "functions"
-  node_bundler = "esbuild"
+directory = "functions"
+node_bundler = "esbuild"
+
 [[redirects]]
-  from = "/getsource/"
-  to = "/.netlify/functions/getsource"
-  status = 200
+from = "/getcode/"
+to = "/.netlify/functions/getcode"
+status = 200
+force = true
+_generated_by_eleventy_serverless = "getcode"

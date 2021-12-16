@@ -102,5 +102,8 @@ dist
 
 # TernJS port file
 .tern-port
+
 # Eleventy
 _site
+functions/getcode/**
+!functions/getcode/index.js

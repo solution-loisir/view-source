@@ -1,25 +1,36 @@
+---
+title: Web-x-ray
+permalink:
+  build: /
+  getcode: /getcode/
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Web x-ray</title>
+<title>{{ title }}</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-</style>
+<link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
 </head>
 <body>
 
-<h1>Web x-ray</h1>
+<h1>{{ title }}</h1>
 
-<form action="/getsource/" method="GET">
+<form action="/getcode/" method="GET">
 <label for="siteUrl">Enter site URL</label>
 <input type="url" id="siteUrl" name="siteUrl" required>
 <input type="submit">
 </form>
 
-<p>Source code from:</p>
+{% set url = eleventy.serverless.query.siteUrl %}
 
-<pre><code></code></pre>
+<p>Source code from: <a href="{{ url }}" target="_blank">{{ url }}</a></p>
+
+{% if collections.all[0].template.templateData.globalData.sourceCode %}
+
+{% highlight "html" %}{{ sourceCode | safe }}{% endhighlight %}
+
+{% endif %}
 
 </body>
 </html>

@@ -1,6 +1,11 @@
-//const { EleventyServerlessBundlerPlugin } = require("@11ty/eleventy");
-const inspect = require("util").inspect;
+const { EleventyServerlessBundlerPlugin } = require("@11ty/eleventy");
+const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+
 
 module.exports = config => {
-    config.addPassthroughCopy("prism/*");
+
+    config.addPlugin(EleventyServerlessBundlerPlugin, {
+      name: "getcode"
+    });
+    config.addPlugin(syntaxHighlight);
 }
