@@ -6,20 +6,20 @@ const fetch = require("cross-fetch");
 require("./eleventy-bundler-modules.js");
 
 async function handler(event) {
+  const url = new URL(event.queryStringParameters.siteUrl);
+  const result = await fetch(url);
+  const textResult = await result.text();
+
+  let elev = new EleventyServerless("getcode", {
+    path: event.path,
+    query: event.queryStringParameters,
+    functionsDir: "./functions/",
+    config: async function(config) {
+      config.addGlobalData("sourceCode", textResult);
+    }
+  });
+
   try {
-    const url = new URL(event.queryStringParameters.siteUrl);
-    const result = await fetch(url);
-    const textResult = await result.text();
-
-    let elev = new EleventyServerless("getcode", {
-      path: event.path,
-      query: event.queryStringParameters,
-      functionsDir: "./functions/",
-      config: async function(config) {
-        config.addGlobalData("sourceCode", textResult);
-      }
-    });
-
     return {
       statusCode: 200,
       headers: {
