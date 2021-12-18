@@ -107,5 +107,3 @@ dist
 _site
 functions/getcode/**
 !functions/getcode/index.js
-!functions/getcode/package.json
-!functions/getcode/package-lock.json
