@@ -1,1 +1,0 @@
-module.exports = require('./src/functions/getcode/eleventy-app-globaldata-modules.js')

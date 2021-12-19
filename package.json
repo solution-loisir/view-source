@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "netlify dev",
-    "dev": "eleventy --watch --incremental",
-    "prod": "eleventy"
+    "dev": "npx @11ty/eleventy --serve --incremental",
+    "prod": "npx @11ty/eleventy"
   },
   "repository": {
     "type": "git",

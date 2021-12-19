@@ -1075,35 +1075,29 @@ var require_package = __commonJS({
       "11ty": {
         compatibility: ">=0.5.4"
       },
-      _args: [
-        [
-          "@11ty/eleventy-plugin-syntaxhighlight@3.1.3",
-          "/home/mathieu/web-x-ray"
-        ]
-      ],
-      _development: true,
-      _from: "@11ty/eleventy-plugin-syntaxhighlight@3.1.3",
+      _from: "@11ty/eleventy-plugin-syntaxhighlight@^3.1.3",
       _id: "@11ty/eleventy-plugin-syntaxhighlight@3.1.3",
       _inBundle: false,
       _integrity: "sha512-xUNbUl1rC6nRGwoWhTcivjWc6h45Y7QzKpjjjLAII4XxR9JsR1kOWYNOyI6ErK4I218tsBwgSgGVHsSAVFuAcQ==",
       _location: "/@11ty/eleventy-plugin-syntaxhighlight",
       _phantomChildren: {},
       _requested: {
-        type: "version",
+        type: "range",
         registry: true,
-        raw: "@11ty/eleventy-plugin-syntaxhighlight@3.1.3",
+        raw: "@11ty/eleventy-plugin-syntaxhighlight@^3.1.3",
         name: "@11ty/eleventy-plugin-syntaxhighlight",
         escapedName: "@11ty%2feleventy-plugin-syntaxhighlight",
         scope: "@11ty",
-        rawSpec: "3.1.3",
+        rawSpec: "^3.1.3",
         saveSpec: null,
-        fetchSpec: "3.1.3"
+        fetchSpec: "^3.1.3"
       },
       _requiredBy: [
         "/"
       ],
       _resolved: "https://registry.npmjs.org/@11ty/eleventy-plugin-syntaxhighlight/-/eleventy-plugin-syntaxhighlight-3.1.3.tgz",
-      _spec: "3.1.3",
+      _shasum: "afbd846eaba16d0380c8684556eb796e2fe4b429",
+      _spec: "@11ty/eleventy-plugin-syntaxhighlight@^3.1.3",
       _where: "/home/mathieu/web-x-ray",
       author: {
         name: "Zach Leatherman",
@@ -1113,10 +1107,12 @@ var require_package = __commonJS({
       bugs: {
         url: "https://github.com/11ty/eleventy-plugin-syntaxhighlight/issues"
       },
+      bundleDependencies: false,
       dependencies: {
         linkedom: "^0.12.1",
         prismjs: "^1.25.0"
       },
+      deprecated: false,
       description: "A pack of Eleventy plugins for syntax highlighting for Markdown and Liquid templates.",
       devDependencies: {
         ava: "^3.15.0",
@@ -3212,7 +3208,13 @@ var require_decode_codepoint2 = __commonJS({
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     var decode_json_1 = __importDefault(require_decode2());
-    var fromCodePoint = String.fromCodePoint || function(codePoint) {
+    function decodeCodePoint(codePoint) {
+      if (codePoint >= 55296 && codePoint <= 57343 || codePoint > 1114111) {
+        return "\uFFFD";
+      }
+      if (codePoint in decode_json_1.default) {
+        codePoint = decode_json_1.default[codePoint];
+      }
       var output = "";
       if (codePoint > 65535) {
         codePoint -= 65536;
@@ -3221,15 +3223,6 @@ var require_decode_codepoint2 = __commonJS({
       }
       output += String.fromCharCode(codePoint);
       return output;
-    };
-    function decodeCodePoint(codePoint) {
-      if (codePoint >= 55296 && codePoint <= 57343 || codePoint > 1114111) {
-        return "\uFFFD";
-      }
-      if (codePoint in decode_json_1.default) {
-        codePoint = decode_json_1.default[codePoint];
-      }
-      return fromCodePoint(codePoint);
     }
     exports2.default = decodeCodePoint;
   }
@@ -3248,13 +3241,15 @@ var require_decode3 = __commonJS({
     var legacy_json_1 = __importDefault(require_legacy());
     var xml_json_1 = __importDefault(require_xml());
     var decode_codepoint_1 = __importDefault(require_decode_codepoint2());
-    var strictEntityRe = /&(?:[a-zA-Z0-9]+|#[xX][\da-fA-F]+|#\d+);/g;
     exports2.decodeXML = getStrictDecoder(xml_json_1.default);
     exports2.decodeHTMLStrict = getStrictDecoder(entities_json_1.default);
     function getStrictDecoder(map) {
+      var keys = Object.keys(map).join("|");
       var replace = getReplacer(map);
+      keys += "|#[xX][\\da-fA-F]+|#\\d+";
+      var re = new RegExp("&(?:" + keys + ");", "g");
       return function(str) {
-        return String(str).replace(strictEntityRe, replace);
+        return String(str).replace(re, replace);
       };
     }
     var sorter = function(a, b) {
@@ -3291,7 +3286,7 @@ var require_decode3 = __commonJS({
           }
           return decode_codepoint_1.default(parseInt(str.substr(2), 10));
         }
-        return map[str.slice(1, -1)] || str;
+        return map[str.slice(1, -1)];
       };
     }
   }
@@ -3305,16 +3300,15 @@ var require_encode = __commonJS({
       return mod && mod.__esModule ? mod : { "default": mod };
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.escapeUTF8 = exports2.escape = exports2.encodeNonAsciiHTML = exports2.encodeHTML = exports2.encodeXML = void 0;
+    exports2.escape = exports2.encodeHTML = exports2.encodeXML = void 0;
     var xml_json_1 = __importDefault(require_xml());
     var inverseXML = getInverseObj(xml_json_1.default);
     var xmlReplacer = getInverseReplacer(inverseXML);
-    exports2.encodeXML = getASCIIEncoder(inverseXML);
+    exports2.encodeXML = getInverse(inverseXML, xmlReplacer);
     var entities_json_1 = __importDefault(require_entities());
     var inverseHTML = getInverseObj(entities_json_1.default);
     var htmlReplacer = getInverseReplacer(inverseHTML);
     exports2.encodeHTML = getInverse(inverseHTML, htmlReplacer);
-    exports2.encodeNonAsciiHTML = getASCIIEncoder(inverseHTML);
     function getInverseObj(obj) {
       return Object.keys(obj).sort().reduce(function(inverse, name) {
         inverse[obj[name]] = "&" + name + ";";
@@ -3347,13 +3341,8 @@ var require_encode = __commonJS({
       return new RegExp(multiple.join("|"), "g");
     }
     var reNonASCII = /(?:[\x80-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])/g;
-    var getCodePoint = String.prototype.codePointAt != null ? function(str) {
-      return str.codePointAt(0);
-    } : function(c) {
-      return (c.charCodeAt(0) - 55296) * 1024 + c.charCodeAt(1) - 56320 + 65536;
-    };
     function singleCharReplacer(c) {
-      return "&#x" + (c.length > 1 ? getCodePoint(c) : c.charCodeAt(0)).toString(16).toUpperCase() + ";";
+      return "&#x" + c.codePointAt(0).toString(16).toUpperCase() + ";";
     }
     function getInverse(inverse, re) {
       return function(data) {
@@ -3362,22 +3351,11 @@ var require_encode = __commonJS({
         }).replace(reNonASCII, singleCharReplacer);
       };
     }
-    var reEscapeChars = new RegExp(xmlReplacer.source + "|" + reNonASCII.source, "g");
+    var reXmlChars = getInverseReplacer(inverseXML);
     function escape(data) {
-      return data.replace(reEscapeChars, singleCharReplacer);
+      return data.replace(reXmlChars, singleCharReplacer).replace(reNonASCII, singleCharReplacer);
     }
     exports2.escape = escape;
-    function escapeUTF8(data) {
-      return data.replace(xmlReplacer, singleCharReplacer);
-    }
-    exports2.escapeUTF8 = escapeUTF8;
-    function getASCIIEncoder(obj) {
-      return function(data) {
-        return data.replace(reEscapeChars, function(c) {
-          return obj[c] || singleCharReplacer(c);
-        });
-      };
-    }
   }
 });
 
@@ -3386,7 +3364,7 @@ var require_lib4 = __commonJS({
   "node_modules/entities/lib/index.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.decodeXMLStrict = exports2.decodeHTML5Strict = exports2.decodeHTML4Strict = exports2.decodeHTML5 = exports2.decodeHTML4 = exports2.decodeHTMLStrict = exports2.decodeHTML = exports2.decodeXML = exports2.encodeHTML5 = exports2.encodeHTML4 = exports2.escapeUTF8 = exports2.escape = exports2.encodeNonAsciiHTML = exports2.encodeHTML = exports2.encodeXML = exports2.encode = exports2.decodeStrict = exports2.decode = void 0;
+    exports2.decodeXMLStrict = exports2.decodeHTML5Strict = exports2.decodeHTML4Strict = exports2.decodeHTML5 = exports2.decodeHTML4 = exports2.decodeHTMLStrict = exports2.decodeHTML = exports2.decodeXML = exports2.encodeHTML5 = exports2.encodeHTML4 = exports2.escape = exports2.encodeHTML = exports2.encodeXML = exports2.encode = exports2.decodeStrict = exports2.decode = void 0;
     var decode_1 = require_decode3();
     var encode_1 = require_encode();
     function decode(data, level) {
@@ -3408,14 +3386,8 @@ var require_lib4 = __commonJS({
     Object.defineProperty(exports2, "encodeHTML", { enumerable: true, get: function() {
       return encode_2.encodeHTML;
     } });
-    Object.defineProperty(exports2, "encodeNonAsciiHTML", { enumerable: true, get: function() {
-      return encode_2.encodeNonAsciiHTML;
-    } });
     Object.defineProperty(exports2, "escape", { enumerable: true, get: function() {
       return encode_2.escape;
-    } });
-    Object.defineProperty(exports2, "escapeUTF8", { enumerable: true, get: function() {
-      return encode_2.escapeUTF8;
     } });
     Object.defineProperty(exports2, "encodeHTML4", { enumerable: true, get: function() {
       return encode_2.encodeHTML;
