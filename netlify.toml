@@ -7,7 +7,6 @@ command = "npm run dev"
 
 [functions]
 directory = "functions"
-node_bundler = "esbuild"
 external_node_modules = [
   "prismjs",
   "@11ty/eleventy",
