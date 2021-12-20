@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/solution-loisir/web-x-ray#readme",
   "dependencies": {
-    "@11ty/eleventy": "^1.0.0-canary.46",
+    "@11ty/eleventy": "^1.0.0-canary.48",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.3",
-    "cross-fetch": "^3.1.4",
-    "@netlify/functions": "^0.10.0"
+    "@netlify/functions": "^0.10.0",
+    "cross-fetch": "^3.1.4"
   }
 }
