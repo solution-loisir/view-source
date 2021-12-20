@@ -107,3 +107,6 @@ dist
 _site
 functions/getcode/**
 !functions/getcode/index.js
+
+# Netlify
+.netlify/**
