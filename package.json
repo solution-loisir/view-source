@@ -19,9 +19,6 @@
     "url": "https://github.com/solution-loisir/web-x-ray/issues"
   },
   "homepage": "https://github.com/solution-loisir/web-x-ray#readme",
-  "devDependencies": {
-    "netlify-cli": "^8.1.7"
-  },
   "dependencies": {
     "@11ty/eleventy": "^1.0.0-canary.46",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.3",
