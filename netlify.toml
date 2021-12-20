@@ -7,12 +7,6 @@ command = "npm run dev"
 
 [functions]
 directory = "functions"
-external_node_modules = [
-  "prismjs",
-  "@11ty/eleventy",
-  "@11ty/dependency-tree",
-  "pug-filters"
-]
 
 [[redirects]]
 from = "/getcode/"
