@@ -2,9 +2,6 @@
 publish = "_site"
 command = "npm run prod"
 
-[dev]
-command = "npm run dev"
-
 [functions]
 directory = "functions"
 
