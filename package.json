@@ -1,5 +1,5 @@
 {
-  "name": "web-x-ray",
+  "name": "view-source",
   "version": "0.0.1",
   "description": "Get source code from URLs.",
   "main": "index.html",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/solution-loisir/web-x-ray.git"
+    "url": "git+https://github.com/solution-loisir/view-source.git"
   },
   "author": "",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/solution-loisir/web-x-ray/issues"
+    "url": "https://github.com/solution-loisir/view-source/issues"
   },
-  "homepage": "https://github.com/solution-loisir/web-x-ray#readme",
+  "homepage": "https://github.com/solution-loisir/view-source#readme",
   "dependencies": {
     "@11ty/eleventy": "^1.0.0-canary.48",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.3",
