@@ -26,7 +26,7 @@ permalink:
 
 <p>Source code from: <a href="{{ url }}" target="_blank">{{ url }}</a></p>
 
-{% if collections.all[0].template.templateData.globalData.sourceCode %}
+{% if sourceCode %}
 
 {% highlight "html" %}{{ sourceCode | safe }}{% endhighlight %}
 
