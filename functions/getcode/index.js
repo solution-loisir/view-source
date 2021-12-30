@@ -6,7 +6,7 @@ const fetch = require("cross-fetch");
 require("./eleventy-bundler-modules.js");
 
 async function handler(event) {
-  let textResult = "Something went wrong, please try again.";
+  let textResult = "Query string parameter not correctly assigned.";
   
   if (event.queryStringParameters.siteUrl) {
     const url = new URL(event.queryStringParameters.siteUrl);
