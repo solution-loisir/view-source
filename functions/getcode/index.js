@@ -7,15 +7,12 @@ require("./eleventy-bundler-modules.js");
 
 async function handler(event) {
   let textResult;
-
-  try {
-    if (event.queryStringParameters.siteUrl) {
-      const url = new URL(event.queryStringParameters.siteUrl);
-      const result = await fetch(url);
-      textResult = await result.text();
-    }
-  } catch (error) {
-    console.error("Fetching error:", error);
+  
+  if (event.queryStringParameters.siteUrl) {
+    const url = new URL(event.queryStringParameters.siteUrl);
+    textResult = await fetch(url)
+    .then(result => result.text())
+    .catch(error => console.error("Fetching error:", error));
   }
 
   let elev = new EleventyServerless("getcode", {
